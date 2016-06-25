@@ -1,20 +1,20 @@
 # encoding: utf-8
 require 'spec_helper'
-require "logstash/filters/example"
+require "logstash/filters/domain"
 
-describe LogStash::Filters::Example do
-  describe "Set to Hello World" do
+describe LogStash::Filters::Domain do
+  describe "Test www.google.com" do
     let(:config) do <<-CONFIG
       filter {
-        example {
-          message => "Hello World"
+        domain {
+          url_field => "url"
         }
       }
     CONFIG
     end
 
-    sample("message" => "some text") do
-      expect(subject.get("message")).to eq('Hello World')
+    sample("url" => "mail.google.com") do
+      expect(subject.get("domain")).to eq('google.com')
     end
   end
 end
